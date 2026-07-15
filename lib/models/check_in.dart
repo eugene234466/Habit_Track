@@ -19,7 +19,7 @@ class CheckIn {
   factory CheckIn.fromMap(Map<String, dynamic> map){
     return CheckIn(
       id: map['id'] as int?,
-      habitId: map['habitId'] as int?,
+      habitId: map['habit_id'] as int?,
       status: map['status'] as String,
       createdAt: DateTime.parse(map['createdAt'] as String),
     );
