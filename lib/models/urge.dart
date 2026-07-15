@@ -10,10 +10,10 @@ class Urge {
   Map<String, dynamic> toMap(){
     return{
       'id': id,
-      'habitId': habitId,
+      'habit_id': habitId,
       'timestamp': timestamp.toIso8601String(),
       'intensity': intensity,
-      'triggerNote': triggerNote,
+      'trigger_note': triggerNote,
     };
   }
   factory Urge.fromMap(Map<String, dynamic> map){
