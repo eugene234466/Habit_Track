@@ -49,6 +49,34 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Future<void> confirmDelete(Habit habit) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Delete habit?'),
+        content: Text(
+          'This will permanently delete "${habit.name}" and all its check-ins and urge logs. This can\'t be undone.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      await DatabaseHelper.instance.deleteHabit(habit.id!);
+      loadData();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,6 +169,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             habit: habit)),
                               );
                             },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+                            tooltip: 'Delete habit',
+                            onPressed: () => confirmDelete(habit),
                           ),
                         ],
                       ),
