@@ -99,7 +99,7 @@ class DatabaseHelper {
   }
   // add to lib/db/database_helper.dart
 
-Future<void> deleteHabit(int habitId) async {
+ Future<void> deleteHabit(int habitId) async                  {
   final db = await database;
   await db.delete('check_ins', where: 'habit_id = ?', whereArgs: [habitId]);
   await db.delete('urges', where: 'habit_id = ?', whereArgs: [habitId]);
