@@ -14,6 +14,7 @@ class HabitTrackerApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Habit Tracker',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
