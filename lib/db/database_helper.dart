@@ -97,12 +97,4 @@ class DatabaseHelper {
     );
     return List.generate(maps.length, (i) => Urge.fromMap(maps[i]));
   }
-
-
-  Future<void> deleteHabit(int habitId) async {
-    final db = await database;
-    await db.delete('check_ins', where: 'habit_id = ?', whereArgs: [habitId]);
-    await db.delete('urges', where: 'habit_id = ?', whereArgs: [habitId]);
-    await db.delete('habits', where: 'id = ?', whereArgs: [habitId]);
-  }
 }
