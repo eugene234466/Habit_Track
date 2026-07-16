@@ -93,7 +93,7 @@ class _StatsScreenState extends State<StatsScreen> {
                         color: const Color(0xFF2E7D6B),
                         width: 14,
                         borderRadius: BorderRadius.circular(4),
-                        backDrawRodData: BackgroundBarChartRodData(
+        backDrawRodData: BackgroundBarChartRodData(
                           show: true,
                           toY: 1,
                           color: const Color(0xFFE8F0EC),
@@ -149,7 +149,7 @@ class _StatCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(

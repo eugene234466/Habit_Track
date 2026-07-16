@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habittrack/screens/homescreen.dart';
+import 'package:habittrack/screens/app_lock_gate.dart';
 
 void main() {
   runApp(const HabitTrackerApp());
@@ -20,7 +20,7 @@ class HabitTrackerApp extends StatelessWidget {
           seedColor: seedColor,
           brightness: Brightness.light,
         ),
-        scaffoldBackgroundColor: const Color(0xFFF7F5F0), // warm off-white
+        scaffoldBackgroundColor: const Color(0xFFF7F5F0),
         appBarTheme: const AppBarTheme(
           backgroundColor: seedColor,
           foregroundColor: Colors.white,
@@ -41,7 +41,7 @@ class HabitTrackerApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const HomeScreen(),
+      home: const AppLockGate(),
     );
   }
 }
