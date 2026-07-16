@@ -5,6 +5,10 @@ import 'package:habittrack/db/database_helper.dart';
 import 'package:habittrack/models/habit.dart';
 import 'package:habittrack/logic/streak_calculator.dart';
 import 'package:habittrack/logic/scripture_provider.dart';
+import 'package:habittrack/screens/add_habit_screen.dart';
+import 'package:habittrack/screens/check_in_screen.dart';
+import 'package:habittrack/screens/log_urge.dart';
+import 'package:habittrack/screens/stats_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -56,12 +60,16 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Card(
+              color: const Color(0xFFE8F0EC), // soft sage tint
               margin: const EdgeInsets.all(12),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
                   getTodaysScripture(),
-                  style: const TextStyle(fontStyle: FontStyle.italic),
+                  style: const TextStyle(
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFF2E4D42),
+                  ),
                 ),
               ),
             ),
@@ -79,11 +87,63 @@ class _HomeScreenState extends State<HomeScreen> {
                         horizontal: 12, vertical: 6),
                     child: ListTile(
                       title: Text(habit.name),
-                      subtitle: Text(
-                          'Current streak: ${streak.current} days   •   Longest: ${streak.longest} days'),
-                      onTap: () {
-                        // TODO: navigate to habit detail screen
-                      },
+                        subtitle: Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${streak.current} day streak',
+                                style: const TextStyle(
+                                  color: Color(0xFF2E7D6B),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                  text:
+                                      '   •   Longest: ${streak.longest} days'),
+                            ],
+                          ),
+                        ),
+                        onTap: () async {
+                          final updated = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => CheckInScreen(habit: habit)),
+                          );
+                          if (updated == true) loadData();
+                        },
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.bolt,
+                                color: Colors.orange),
+                            tooltip: 'Log urge',
+                            onPressed: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        LogUrgeScreen(
+                                            habit: habit)),
+                              );
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.bar_chart,
+                                color: Colors.blue),
+                            tooltip: 'Stats',
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        StatsScreen(
+                                            habit: habit)),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -93,8 +153,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: navigate to add-habit screen
+        onPressed: () async {
+          final added = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const AddHabitScreen()),
+          );
+          if (added == true) loadData();
         },
         child: const Icon(Icons.add),
       ),

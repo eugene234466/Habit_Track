@@ -14,7 +14,7 @@ class CheckIn {
       'habit_id': habitId,
       'status': status,
       'note': note,
-      'createdAt': createdAt.toIso8601String(),
+      'date': createdAt.toIso8601String(),
     };
   }
 
@@ -24,7 +24,7 @@ class CheckIn {
       habitId: map['habit_id'] as int?,
       status: map['status'] as String,
       note: map['note'] as String?,
-      createdAt: DateTime.parse(map['createdAt'] as String),
+      createdAt: DateTime.parse(map['date'] as String),
     );
   }
 

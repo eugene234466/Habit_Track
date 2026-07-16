@@ -9,14 +9,14 @@ class Habit {
     return{
       'id': id,
       'name': name,
-      'createdAt': createdAt.toIso8601String(),
+      'created_at': createdAt.toIso8601String(),
     };
   }
   factory Habit.fromMap(Map<String, dynamic> map){
     return Habit(
       id: map['id'] as int?,
       name: map['name'] as String,
-      createdAt: DateTime.parse(map['createdAt'] as String),
+      createdAt: DateTime.parse(map['created_at'] as String),
     );
   }
 }
